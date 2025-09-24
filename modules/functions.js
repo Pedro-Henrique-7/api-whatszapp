@@ -36,9 +36,9 @@ const getAllUsers = function(){
     })
     
     if(message.criado === "")
-        console.log(MESSAGE_ERRO)
+        return MESSAGE_ERRO
     else
-        console.log(message)
+        return message
 }
 
 //função para buscar dados de um usuario de acordo com o numero especificado
@@ -62,11 +62,10 @@ const getSpecifcProfileByNumber = function(number){
         let numero = profile.number
         let foto = profile['profile-image']
         let corDeFundo = profile.background
-        let contatos = profile['contacts']
-        message.user.push({id, criado, encerrado, nome, apelido, numero, foto, corDeFundo, contatos})
-        console.log(message)
+        message.user.push({id, criado, encerrado, nome, apelido, numero, foto, corDeFundo})
+        return message
     }else{
-        console.log(MESSAGE_ERRO)
+        return MESSAGE_ERRO
     }
 }
 
@@ -89,7 +88,7 @@ const getAllContactsByNumber = function(number){
         message.contacts.push({nome, foto, descricao})
         
     })
-    console.log(message)
+    return message
 }
 
 //função para listar todas as mensagens de acordo com o numero
@@ -107,7 +106,7 @@ const getAllMessagesByNumber = function(number){
     contact.forEach(function(item){
         message.mensagens.push(item['messages'])  
     })
-    console.log(message)
+    return message
 }
 
 //Listar uma conversa de um usuario e um contato apartir de um numero de usuario e o numero do contato
@@ -138,4 +137,12 @@ const getMessageWithAUserByNumber = function(senderNumber, reciverNumber){
 // getSpecifcProfileByNumber('11955577796')
 // getAllContactsByNumber('11966578996')
 // getAllMessagesByNumber('11966578996')
-getMessageWithAUserByNumber('11966578996', '26999999913')
+// getMessageWithAUserByNumber('11966578996', '26999999913')
+
+module.exports={
+    getAllUsers,
+    getSpecifcProfileByNumber,
+    getAllContactsByNumber,
+    getAllMessagesByNumber,
+    getMessageWithAUserByNumber
+}
