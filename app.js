@@ -15,7 +15,6 @@ const bodyParser = require('body-parser')
 
 const dados = require('./modules/functions.js')
 
-
 //deifine a porta padrão da api, se for servidor de nuvem nao temos acesso a porta
     //EM EXECUÇÃO LOCAL PODEMOS DEFINIR A PORTA
 const PORT  = process.PORT || 8080
@@ -65,6 +64,28 @@ app.get('/v1/whatsapp/listarContatos', function(request, response){
     response.status(users.statuscode) 
     response.json(users) 
   
+  })
+
+
+  app.get('/v1/whatsapp/userMessages/', function(request, response){
+    let senderNumber = request.query.senderNumber
+    let reciverNumber = request.query.reciverNumber
+
+    let data = dados.getMessageWithAUserByNumber(senderNumber, reciverNumber)
+    response.status(data.statuscode)
+    response.json(data)
+ })
+
+  app.get('/v1/whatsapp/keyword/', function(request, response){
+    let senderNumber = request.query.senderNumber
+    let reciverNumber = request.query.reciverNumber
+    let keyword = request.query.keyword
+    let keyMessage = dados.getMessageByKeyword(senderNumber, reciverNumber, keyword)
+    
+    response.status(keyMessage.statuscode)
+    response.json(keyMessage)
+
+    
   })
 
 
